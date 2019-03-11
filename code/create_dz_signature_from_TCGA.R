@@ -27,11 +27,17 @@ take_first_match <- function(geneID){
 
 expr_matrix <- read.csv(disease_data_filepath, sep = "\t")
 samples <- colnames(expr_matrix)
-sample_types <- gsub(".*\\.", "", samples)
+sample_types <- gsub(".*\\.", "", samples) #extract sample types encoded in last 2 digits
 
 #define cases (tumors) and controls (normal samples)
 case <- samples[sample_types == '01'] #primary tumors are '01'
 control <- samples[sample_types == '11'] #solid tissue normal are '11'
+
+#narrow down cases by phenotype
+#phenotypes <- read.csv("data/BRCA_clinicalMatrix", sep = "\t")
+#phenotypes$sampleID <- gsub("-", ".", phenotypes$sampleID) #keep sampleID names consistent; R doesn't like - in column names
+#lumA_phenotypes <- phenotypes[phenotypes$PAM50Call_RNAseq == 'LumA', c('sampleID')]
+#case <- case[case %in% lumA_phenotypes]
 
 genes <- as.character(expr_matrix$sample)
 
