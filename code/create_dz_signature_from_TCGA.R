@@ -27,7 +27,7 @@ take_first_match <- function(geneID){
 
 expr_matrix <- read.csv(disease_data_filepath, sep = "\t")
 samples <- colnames(expr_matrix)
-sample_types <- gsub(".*\\.", "", samples) #extract sample types encoded in last 2 digits
+sample_types <- gsub(".*\\.", "", samples) #extract sample types encoded in last 2 digits using regular expressions
 
 #define cases (tumors) and controls (normal samples)
 case <- samples[sample_types == '01'] #primary tumors are '01'
